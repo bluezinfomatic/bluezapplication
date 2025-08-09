@@ -3,13 +3,8 @@ import { QRCodeCanvas } from "qrcode.react";
 import "../App.css";
 
 const Home = () => {
-  // Change baseURL according to environment or need
-  // For local dev, uncomment the line below and comment the live URL
-  // const baseURL = "http://192.168.1.10:3000";
-
   // For production/live Netlify URL
   const baseURL = "https://bluezapplication.netlify.app";
-
   const candidateURL = `${baseURL}/candidate-register`;
   const studentURL = `${baseURL}/student-register`;
 
