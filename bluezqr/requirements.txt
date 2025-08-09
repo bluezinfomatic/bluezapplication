@@ -1,1 +1,4 @@
-
+Django==5.2.5
+djangorestframework==3.14.0
+gunicorn==20.1.0
+corsheaders==3.14.0
