@@ -58,6 +58,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # CORS allowed origins (adjust this to your frontend URL)
 CORS_ALLOWED_ORIGINS = [
     "https://bluezapplication.netlify.app",
+    "https://bluezapplication.onrender.com",
 ]
 
 REST_FRAMEWORK = {
