@@ -1,16 +1,23 @@
 import React from "react";
 import { QRCodeCanvas } from "qrcode.react";
-import "../App.css"; // Custom styles
+import "../App.css";
 
 const Home = () => {
-  const baseURL = "https://bluezapplication.netlify.app"; // Replace with your live frontend URL
+  // Change baseURL according to environment or need
+  // For local dev, uncomment the line below and comment the live URL
+  // const baseURL = "http://192.168.1.10:3000";
+
+  // For production/live Netlify URL
+  const baseURL = "https://bluezapplication.netlify.app";
+
   const candidateURL = `${baseURL}/candidate-register`;
   const studentURL = `${baseURL}/student-register`;
 
+  console.log("Candidate URL:", candidateURL);
+  console.log("Student URL:", studentURL);
 
   return (
-    <>
-     <div className="home-container">
+    <div className="home-container">
       <div className="company-section">
         <h2>WELCOME TO DREAM FACTORY</h2>
         <p>
@@ -39,10 +46,7 @@ const Home = () => {
           <QRCodeCanvas value={studentURL} size={160} />
         </div>
       </div>
-
-      
     </div>
-    </>
   );
 };
 
