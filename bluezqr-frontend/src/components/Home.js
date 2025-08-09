@@ -3,10 +3,10 @@ import { QRCodeCanvas } from "qrcode.react";
 import "../App.css";
 
 const Home = () => {
-  // For production/live Netlify URL
   const baseURL = "https://bluezapplication.netlify.app";
   const candidateURL = `${baseURL}/candidate-register`;
   const studentURL = `${baseURL}/student-register`;
+
 
   console.log("Candidate URL:", candidateURL);
   console.log("Student URL:", studentURL);
