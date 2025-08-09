@@ -41,7 +41,7 @@ const CandidateRegister = () => {
     });
 
     try {
-      await axios.post('http://localhost:8000/api/candidates/', data, {
+      await axios.post('https://bluezapplication.onrender.com/api/candidates/', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
