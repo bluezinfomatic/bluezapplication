@@ -3,9 +3,10 @@ import { QRCodeCanvas } from "qrcode.react";
 import "../App.css"; // Custom styles
 
 const Home = () => {
-  const baseURL = "http://192.168.1.10:3000"; // Replace with your IP
+  const baseURL = "https://bluezapplication.netlify.app"; // Replace with your live frontend URL
   const candidateURL = `${baseURL}/candidate-register`;
   const studentURL = `${baseURL}/student-register`;
+
 
   return (
     <>
