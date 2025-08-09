@@ -23,7 +23,7 @@ if not SECRET_KEY:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-DEBUG = False
+DEBUG = True
 
 # Hosts allowed to access your Django app
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
