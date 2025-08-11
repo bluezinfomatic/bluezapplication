@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -7,7 +8,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY environment variable not set!")
 
-DEBUG = True  # Change to False in production
+DEBUG = True  # Prod-க்கு False பண்ணுங்க
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
@@ -37,18 +38,14 @@ MIDDLEWARE = [
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# ✅ CORS settings
+# CORS settings
+from corsheaders.defaults import default_methods, default_headers
 CORS_ALLOWED_ORIGINS = [
     "https://bluezapplication.netlify.app",
     "https://bluezapplication.onrender.com",
 ]
-
-# Allow all HTTP methods
-from corsheaders.defaults import default_methods, default_headers
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)
-
-# If you need cookies/auth headers
 CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
@@ -79,26 +76,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bluezqr.wsgi.application'
 
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable not set!")
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
 }
-
-# import dj_database_url
-# import os
-
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=os.getenv('DATABASE_URL', f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
-#         conn_max_age=600,
-#         ssl_require=True
-#     )
-# }
-
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
