@@ -17,8 +17,10 @@ class CandidateViewSet(viewsets.ModelViewSet):
 
 # ---- Temporary backup view ----
 def backup_view(request):
-    out = StringIO()
-    call_command('dumpdata', stdout=out)  # dumps all data from the DB
-    response = HttpResponse(out.getvalue(), content_type='application/json')
-    response['Content-Disposition'] = 'attachment; filename=backup.json'
-    return response
+    students_json = serialize('json', Student.objects.all())
+    candidates_json = serialize('json', Candidate.objects.all())
+
+    return JsonResponse({
+        "students": students_json,
+        "candidates": candidates_json
+    }, safe=False)
