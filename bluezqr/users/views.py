@@ -18,10 +18,6 @@ class CandidateViewSet(viewsets.ModelViewSet):
 
 # ---- Temporary backup view ----
 def backup_view(request):
-    # Optional: restrict to admin users only
-    # if not request.user.is_authenticated or not request.user.is_staff:
-    #     return HttpResponseForbidden("Forbidden")
-
     out = StringIO()
     call_command('dumpdata', stdout=out)
     response = HttpResponse(out.getvalue(), content_type='application/json')
