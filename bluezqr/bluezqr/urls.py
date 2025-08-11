@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from users.views import StudentViewSet, CandidateViewSet, backup_view  # backup_view import
+from users.views import StudentViewSet, CandidateViewSet, backup_view
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
