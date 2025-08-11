@@ -2,7 +2,7 @@
   "name": "bluezqr-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bluezinfomatic.github.io/bluezapplication",
+  "homepage": ".",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.6.4",
