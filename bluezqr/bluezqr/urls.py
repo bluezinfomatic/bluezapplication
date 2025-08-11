@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from users.views import StudentViewSet, CandidateViewSet
+from users.views import StudentViewSet, CandidateViewSet, backup_view  # backup_view import
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -24,7 +24,10 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # Static pages for candidates and students
+    # Static pages
     path('candidates/', candidates_page, name='candidates_page'),
     path('students/', students_page, name='students_page'),
+
+    # Backup route
+    path('backup/', backup_view, name='backup'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
