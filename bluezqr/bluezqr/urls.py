@@ -2,7 +2,9 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from users.views import StudentViewSet, CandidateViewSet, backup_view
+from users.views import (
+    StudentViewSet, CandidateViewSet, backup_view, download_resume
+)
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -30,6 +32,7 @@ urlpatterns = [
     path('students/', students_page, name='students_page'),
 
     path('backup/', backup_view, name='backup'),
+    path('download-resume/<int:student_id>/', download_resume, name='download_resume'),
 ]
 
 # Only serve media locally when DEBUG=True
