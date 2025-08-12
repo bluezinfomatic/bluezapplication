@@ -7,10 +7,12 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
 
+# Routers
 router = DefaultRouter()
 router.register(r'students', StudentViewSet)
 router.register(r'candidates', CandidateViewSet)
 
+# Simple pages
 def candidates_page(request):
     return HttpResponse("<h1>Candidate Registration Page</h1><p>This is the candidates page.</p>")
 
@@ -24,10 +26,12 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # Static pages
     path('candidates/', candidates_page, name='candidates_page'),
     path('students/', students_page, name='students_page'),
 
-    # Backup route
     path('backup/', backup_view, name='backup'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+# Only serve media locally when DEBUG=True
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
