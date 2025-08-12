@@ -5,6 +5,9 @@ from corsheaders.defaults import default_methods, default_headers
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # SECURITY
 SECRET_KEY = os.environ.get('SECRET_KEY')
 if not SECRET_KEY:
