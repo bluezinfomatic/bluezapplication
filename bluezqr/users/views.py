@@ -54,9 +54,8 @@ def download_resume(request, student_id):
     try:
         student = Student.objects.get(id=student_id)
         if student.resume:
-            url, _ = cloudinary_url(student.resume.public_id, resource_type="raw", format="pdf")
-            return redirect(url)
+            return redirect(student.resume.url)  # Cloudinary URL-க்கு redirect செய்யும்
         else:
-            return HttpResponse("No resume uploaded", status=404)
+            return HttpResponse("Resume not found", status=404)
     except Student.DoesNotExist:
         return HttpResponse("Student not found", status=404)
