@@ -24,3 +24,19 @@ def backup_view(request):
         "students": students_json,
         "candidates": candidates_json
     }, safe=False)
+
+from django.contrib.auth import get_user_model
+import os
+
+def create_admin_user():
+    User = get_user_model()
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser(
+            username="admin",
+            email="bluezinfomaticsolutions@gmail.com",
+            password="Bluez@.1A"
+        )
+        print("✅ Superuser created: admin / yourpassword123")
+
+create_admin_user()
+
