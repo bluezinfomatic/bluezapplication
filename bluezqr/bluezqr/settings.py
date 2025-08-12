@@ -104,7 +104,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # MEDIA (Cloudinary)
 CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')  # set in Render dashboard
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
 MEDIA_URL = '/media/'  # Still needed for development
 MEDIA_ROOT = BASE_DIR / 'media'
 
