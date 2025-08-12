@@ -40,3 +40,16 @@ def create_admin_user():
 
 create_admin_user()
 
+from django.shortcuts import redirect
+from django.http import HttpResponse
+from .models import Student
+
+def download_resume(request, student_id):
+    try:
+        student = Student.objects.get(id=student_id)
+        if student.resume:
+            return redirect(student.resume.url)  # Redirect to the Cloudinary file URL
+        else:
+            return HttpResponse("No resume uploaded", status=404)
+    except Student.DoesNotExist:
+        return HttpResponse("Student not found", status=404)
