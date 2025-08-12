@@ -2,18 +2,28 @@ from rest_framework import viewsets
 from .models import Student, Candidate
 from .serializers import StudentSerializer, CandidateSerializer
 
-# Extra imports for backup
-from django.core.management import call_command
-from django.http import HttpResponse
-from io import StringIO
+# Needed imports for backup_view
+from django.core.serializers import serialize
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import redirect
+
+# For creating admin user
+from django.contrib.auth import get_user_model
+import os
+
+# For generating Cloudinary URLs
+from cloudinary.utils import cloudinary_url
+
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
+
 class CandidateViewSet(viewsets.ModelViewSet):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
+
 
 # ---- Temporary backup view ----
 def backup_view(request):
@@ -25,8 +35,6 @@ def backup_view(request):
         "candidates": candidates_json
     }, safe=False)
 
-from django.contrib.auth import get_user_model
-import os
 
 def create_admin_user():
     User = get_user_model()
@@ -38,13 +46,9 @@ def create_admin_user():
         )
         print("✅ Superuser created: admin / yourpassword123")
 
+
 create_admin_user()
 
-
-from django.shortcuts import redirect
-from django.http import HttpResponse
-from .models import Student
-from cloudinary.utils import cloudinary_url
 
 def download_resume(request, student_id):
     try:
