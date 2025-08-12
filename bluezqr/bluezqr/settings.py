@@ -102,11 +102,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# MEDIA (Cloudinary)
-CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')  # set in Render dashboard
+# MEDIA (Cloudinary for PDFs & other raw files)
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')  # e.g., cloudinary://API_KEY:API_SECRET@CLOUD_NAME
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
-MEDIA_URL = '/media/'  # Still needed for development
-MEDIA_ROOT = BASE_DIR / 'media'
 
 # REST FRAMEWORK
 REST_FRAMEWORK = {
