@@ -9,7 +9,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY environment variable not set!")
 
-DEBUG = True  # Change to False in production
+DEBUG = False  # Change to False in production
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
