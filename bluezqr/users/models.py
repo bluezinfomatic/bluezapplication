@@ -13,7 +13,8 @@ class Student(models.Model):
     passout_year = models.IntegerField()
     percentage = models.FloatField()
     # Only this line needed:
-    resume = CloudinaryField('resume', resource_type='raw')
+    resume = models.FileField(upload_to='resumes/candidates/')
+    # resume = CloudinaryField('resume', resource_type='raw')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -33,7 +34,8 @@ class Candidate(models.Model):
     experience_years = models.IntegerField()
     experience_details = models.TextField()
     # Only this line needed:
-    resume = CloudinaryField('resume', resource_type='raw')
+    resume = models.FileField(upload_to='resumes/candidates/')
+    # resume = CloudinaryField('resume', resource_type='raw')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
