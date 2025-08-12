@@ -10,6 +10,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
     def get_resume_url(self, obj):
         if obj.resume:
+            print(obj.resume.url)
             return obj.resume.url
         return None
 
@@ -22,5 +23,6 @@ class CandidateSerializer(serializers.ModelSerializer):
 
     def get_resume_url(self, obj):
         if obj.resume:
+            print(obj.resume.url)
             return obj.resume.url
         return None
