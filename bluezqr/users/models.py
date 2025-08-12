@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 class Student(models.Model):
     name = models.CharField(max_length=100)
@@ -11,8 +12,8 @@ class Student(models.Model):
     city = models.CharField(max_length=100)
     passout_year = models.IntegerField()
     percentage = models.FloatField()
-    # PDF upload direct to Cloudinary (raw files)
-    resume = models.FileField(upload_to='resumes/students/')
+    # Only this line needed:
+    resume = CloudinaryField('resume')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -31,8 +32,8 @@ class Candidate(models.Model):
     passout_year = models.IntegerField()
     experience_years = models.IntegerField()
     experience_details = models.TextField()
-    # PDF upload direct to Cloudinary (raw files)
-    resume = models.FileField(upload_to='resumes/candidates/')
+    # Only this line needed:
+    resume = CloudinaryField('resume')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
