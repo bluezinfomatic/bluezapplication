@@ -3,12 +3,18 @@ import os
 import dj_database_url
 from corsheaders.defaults import default_methods, default_headers
 
+# BASE DIRECTORY
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# MEDIA & STATIC
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# SECURITY
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# SECURITY SETTINGS
 SECRET_KEY = os.environ.get('SECRET_KEY')
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY environment variable not set!")
@@ -17,7 +23,7 @@ DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
-# INSTALLED APPS
+# APPLICATIONS
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -69,7 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bluezqr.wsgi.application'
 
-# DATABASE
+# DATABASE CONFIG
 if os.getenv("DATABASE_URL"):
     DATABASES = {
         'default': dj_database_url.config(
@@ -100,29 +106,18 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# STATIC FILES
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# MEDIA (Cloudinary for PDFs & other raw files)
-# CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
-
-CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')  # cloudinary://API_KEY:API_SECRET@CLOUD_NAME
+# CLOUDINARY SETTINGS (For PDF & Raw file uploads)
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')  # Format: cloudinary://API_KEY:API_SECRET@CLOUD_NAME
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-
-
-# REST FRAMEWORK
+# REST FRAMEWORK SETTINGS
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
 
-# CORS
+# CORS SETTINGS
 CORS_ALLOWED_ORIGINS = [
     "https://bluezapplication.netlify.app",
     "https://bluezapplication.onrender.com",
