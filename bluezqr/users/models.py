@@ -12,8 +12,6 @@ class Student(models.Model):
     city = models.CharField(max_length=100)
     passout_year = models.IntegerField()
     percentage = models.FloatField()
-    # Only this line needed:
-    # resume = models.FileField(upload_to='resumes/candidates/')
     resume = CloudinaryField('resume', resource_type='raw')
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -33,8 +31,6 @@ class Candidate(models.Model):
     passout_year = models.IntegerField()
     experience_years = models.IntegerField()
     experience_details = models.TextField()
-    # Only this line needed:
-    # resume = models.FileField(upload_to='resumes/candidates/')
     resume = CloudinaryField('resume', resource_type='raw')
     created_at = models.DateTimeField(auto_now_add=True)
 
