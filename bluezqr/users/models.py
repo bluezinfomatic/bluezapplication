@@ -1,7 +1,6 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
 
-
 class Student(models.Model):
     name = models.CharField(max_length=100)
     mobile = models.CharField(max_length=15)
@@ -13,13 +12,11 @@ class Student(models.Model):
     city = models.CharField(max_length=100)
     passout_year = models.IntegerField()
     percentage = models.FloatField()
-    # Resume stored as raw file in Cloudinary folder "resumes/students"
     resume = CloudinaryField('resume', resource_type='raw', folder='resumes/students')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
-
 
 class Candidate(models.Model):
     name = models.CharField(max_length=100)
@@ -33,7 +30,6 @@ class Candidate(models.Model):
     passout_year = models.IntegerField()
     experience_years = models.IntegerField()
     experience_details = models.TextField()
-    # Resume stored as raw file in Cloudinary folder "resumes/candidates"
     resume = CloudinaryField('resume', resource_type='raw', folder='resumes/candidates')
     created_at = models.DateTimeField(auto_now_add=True)
 
