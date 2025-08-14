@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.parsers import MultiPartParser, FormParser  # ✅ added for file uploads
 from .models import Student, Candidate
 from .serializers import StudentSerializer, CandidateSerializer
 
@@ -20,6 +21,7 @@ from cloudinary.utils import cloudinary_url
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    parser_classes = (MultiPartParser, FormParser)  # ✅ handle file uploads
 
     def create(self, request, *args, **kwargs):
         # Save student data
@@ -32,6 +34,7 @@ class StudentViewSet(viewsets.ModelViewSet):
 class CandidateViewSet(viewsets.ModelViewSet):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
+    parser_classes = (MultiPartParser, FormParser)  # ✅ handle file uploads
 
     def create(self, request, *args, **kwargs):
         # Save candidate data
