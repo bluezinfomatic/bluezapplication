@@ -15,11 +15,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # SECURITY SETTINGS
-SECRET_KEY = os.environ.get('SECRET_KEY')
-if not SECRET_KEY:
-    raise ValueError("SECRET_KEY environment variable not set!")
-
-DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-secret')
+DEBUG = True  # ✅ DEBUG ON for development
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
@@ -35,8 +32,8 @@ INSTALLED_APPS = [
     # Third-party
     'rest_framework',
     'corsheaders',
-    'cloudinary',
-    'cloudinary_storage',
+    # 'cloudinary',           # ❌ Commented out for local PDF storage
+    # 'cloudinary_storage',   # ❌ Commented out for local PDF storage
 
     # Local apps
     'users',
@@ -106,9 +103,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# CLOUDINARY SETTINGS (For PDF & Raw file uploads)
-CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')  # Format: cloudinary://API_KEY:API_SECRET@CLOUD_NAME
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+# FILE STORAGE (Local for development)
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # REST FRAMEWORK SETTINGS
 REST_FRAMEWORK = {
