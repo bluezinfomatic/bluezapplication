@@ -9,23 +9,41 @@ from django.shortcuts import redirect
 
 # For creating admin user
 from django.contrib.auth import get_user_model
-import os
 
 # For generating Cloudinary URLs
 from cloudinary.utils import cloudinary_url
 
 
+# -------------------------------
+# ViewSets
+# -------------------------------
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+
+    def create(self, request, *args, **kwargs):
+        # Save student data
+        response = super().create(request, *args, **kwargs)
+        resume_url = response.data.get('resume')
+        print(f"📄 Uploaded student resume URL: {resume_url}")
+        return response
 
 
 class CandidateViewSet(viewsets.ModelViewSet):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
 
+    def create(self, request, *args, **kwargs):
+        # Save candidate data
+        response = super().create(request, *args, **kwargs)
+        resume_url = response.data.get('resume')
+        print(f"📄 Uploaded candidate resume URL: {resume_url}")
+        return response
 
-# ---- Temporary backup view ----
+
+# -------------------------------
+# Backup JSON view
+# -------------------------------
 def backup_view(request):
     students_json = serialize('json', Student.objects.all())
     candidates_json = serialize('json', Candidate.objects.all())
@@ -36,6 +54,9 @@ def backup_view(request):
     }, safe=False)
 
 
+# -------------------------------
+# Create superuser if not exists
+# -------------------------------
 def create_admin_user():
     User = get_user_model()
     if not User.objects.filter(username="admin").exists():
@@ -44,17 +65,20 @@ def create_admin_user():
             email="bluezinfomaticsolutions@gmail.com",
             password="Bluez@.1A"
         )
-        print("✅ Superuser created: admin / yourpassword123")
+        print("✅ Superuser created: admin / Bluez@.1A")
 
 
 create_admin_user()
 
 
+# -------------------------------
+# Download resume by redirect
+# -------------------------------
 def download_resume(request, student_id):
     try:
         student = Student.objects.get(id=student_id)
         if student.resume:
-            return redirect(student.resume.url)  # Cloudinary URL-க்கு redirect செய்யும்
+            return redirect(student.resume.url)
         else:
             return HttpResponse("Resume not found", status=404)
     except Student.DoesNotExist:
